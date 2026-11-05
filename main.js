@@ -84,22 +84,24 @@ function createGrid(rows, cols, mines) {
     }
     //-------------------------------------------------------
     outputTxt.innerText = JSON.stringify(grid);
-    renderGrid(nums, rows, cols);
+    createGridHtml(nums, rows, cols);
 }
 
-function renderGrid(nums, rows, cols) {
+function createGridHtml(nums, rows, cols) {
     document.querySelectorAll(".gameButtons").forEach(btn => btn.remove());
-    gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-    gridContainer.style.gridTemplateCols = `repeat(${cols}, 1fr)`;
+    //get rid of buttons from prev render
+    gridContainer.style.width = `${cols*buttonWidth}px`;
     for (let i = 0; i < rows * cols; i++) {
         const child = document.createElement("button");
         child.classList.add("gameButtons")
+        child.id = `gameButton${i}`;
         gridContainer.append(child);
         child.innerText = nums[i];
     }
 }
 
 
+const buttonWidth = 23.42;
 window.addEventListener("DOMContentLoaded", (event) => {
     const createBtn = document.getElementById("createBtn");
     const outputTxt = document.getElementById("outputTxt");
