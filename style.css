@@ -1,0 +1,30 @@
+.gameButtons{
+    height: 30px;
+    width: 30px;
+    font-size: 100%;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+#gridContainer {
+    line-height: 0;
+}
+
+.gameButtonStyleOne {
+    background-color: rgb(84, 183, 81);
+}
+.gameButtonStyleOne:hover {
+    background-color: rgb(74, 160, 71);
+}
+.gameButtonStyleOneRevealed {
+    background-color: rgb(219, 161, 102);
+}
+.gameButtonStyleTwo {
+    background-color: rgb(107, 201, 104);
+}
+.gameButtonStyleTwo:hover {
+    background-color: rgb(97, 184, 94);
+}
+.gameButtonStyleTwoRevealed {
+    background-color: rgb(210, 180, 120)
+}
