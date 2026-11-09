@@ -1,8 +1,17 @@
-function randomInt(min, max) {
+/*function randomInt(min, max) {
     let result = Math.floor(Math.random() * (max - min + 1)) + min;
     return result;
 }
-
+function shuffleList(arr) {
+    let shuffledList = [];
+    let temp = [...arr];
+    while (temp.length > 0) {
+        let index = randomInt(0, temp.length - 1);
+        shuffledList.push(temp[index]);
+        temp.splice(index, 1);
+    }
+    return shuffledList;
+}
 
 function createGrid() {
     nums = [];
@@ -14,16 +23,6 @@ function createGrid() {
     createEmptyGrid();
 }
 
-function shuffleList(arr) {
-    let shuffledList = [];
-    let temp = [...arr];
-    while (temp.length > 0) {
-        let index = randomInt(0, temp.length - 1);
-        shuffledList.push(temp[index]);
-        temp.splice(index, 1);
-    }
-    return shuffledList;
-}
 
 function createEmptyGrid() {
     for (let i = 0; i < (cols * rows); i++) {
@@ -222,11 +221,13 @@ function endGame() {
     for (i of shuffledMinesList) {
         i.classList.add("revealed");
         i.innerText = "💥";
-        if ((i+ Math.floor(i/cols)) % 2  == 0) {
+        if ((i + Math.floor(i/cols)) % 2 == 0) {
+            i.classList.remove("gameButtonStyleOne")
             i.classList.remove("gameButtonStyleTwo")
             i.classList.add("gameButtonStyleTwoRevealed");
         } else {
             i.classList.remove("gameButtonStyleOne")
+            i.classList.remove("gameButtonStyleTwo")
             i.classList.add("gameButtonStyleOneRevealed");
         }
     }
@@ -256,7 +257,58 @@ window.addEventListener("DOMContentLoaded", (event) => {
         rows = parseInt(document.getElementById("rowsInput").value);
         cols = parseInt(document.getElementById("colsInput").value);
         mines = parseInt(document.getElementById("minesInput").value);
-        createGrid();
+        //createGrid();
+        populateContainer();
     });
 }); 
 
+
+*/
+
+let population = [];
+let agentsCount = 0;
+let rows = 0;
+let cols = 0;
+let mines = 0;
+
+function populateContainer(rows, cols, mines) {
+    let cont = document.getElementById("populationContainer");
+    cont.innerHTML = "";
+    population = [];
+    
+    for (let i = 0; i < agentsCount; i++) {
+        let a = new agent(i, rows, cols, mines);
+        population.push(a);
+        cont.append(a.domcontainer);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    const createBtn = document.getElementById("createBtn");
+    const outputTxt = document.getElementById("outputTxt");
+
+    createBtn.addEventListener("click", () => {
+        rows = parseInt(document.getElementById("rowsInput").value);
+        cols = parseInt(document.getElementById("colsInput").value);
+        mines = parseInt(document.getElementById("minesInput").value);
+        agentsCount = parseInt(document.getElementById("agentsInput").value);
+        
+        if (mines > rows * cols) {
+            outputTxt.innerText = `Too many mines! You can't fit ${mines} mines in a ${rows}x${cols} grid!`;
+            return;
+        }
+
+        outputTxt.innerText = "";
+        populateContainer(rows, cols, mines);
+    });
+});
+
+window.setInterval(() => {
+    for (let ag in population) {
+        if (ag.gameInProgress) {
+            
+        }
+    }
+}
+    
+, 1000)
